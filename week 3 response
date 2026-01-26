@@ -1,0 +1,67 @@
+let logos = [];
+
+function setup() {
+  createCanvas(800, 600);
+  for(let i = 0; i <100; i++) {
+    logos.push(new Logo());
+  }
+}
+
+function draw() {
+  background(220);
+  for(let l of logos){
+    l.draw();
+  }
+}
+
+function Logo() {
+  this.x = random(0, width-100);
+  this.y = random(0, height-50);
+  colorMode(HSB);
+  this.hue = random(0, 255);
+  this.saturation = random(100,220);
+  this.brightness = 255;
+  this.xSpeed = random(1, 4);
+  this.ySpeed = random(1, 4);
+  this.draw = function() {
+    fill(this.hue, this.saturation, this.brightness);
+    rect(this.x, this.y, 100, 50);
+    textSize(40);
+    fill(255);
+    stroke(0);
+    strokeWeight(4);
+    text("DVD", this.x +10, this.y +40);
+    this.x = this.x + this.xSpeed;
+    this.y = this.y + this.ySpeed;
+    if (this.y >= height-50 || this.y <= 0) {
+      this.ySpeed = 0-this.ySpeed;
+    }
+    if (this.x >= width-100 || this.x <= 0) {
+      this.xSpeed = 0-this.xSpeed;
+    }
+    if (this.x <= 0 && this.y <= 0) {
+      this.hue = 255;
+      this.saturation = 255;
+      this.brightness = 0;
+      print("score! x:" + this.x + " y:" + this.y);
+    }
+    if (this.x <= 0 && this.y >= height - 50) {
+      this.hue = 255;
+      this.saturation = 255;
+      this.brightness = 0;
+      print("score! x:" + this.x + " y:" + this.y);
+    }
+    if (this.x >= width-100 && this.y <= 0) {
+      this.hue = 255;
+      this.saturation = 255;
+      this.brightness = 0;
+      print("score! x:" + this.x + " y:" + this.y);
+    }
+    if (this.x >= width-100 && this.y >= height-50) {
+      this.hue = 255;
+      this.saturation = 255;
+      this.brightness = 0;
+      print("score! x:" + this.x + " y:" + this.y);
+    }
+  };
+}
